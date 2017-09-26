@@ -52,7 +52,35 @@ JSON 数据格式返回
 >
 ```JSON
 {
-  code: 0
+  "data": []
+}
+```
+
+#### 门店销量排名
+> GET /sales/ranks/stores
+
+路径参数：
+> 无
+
+请求参数：
+>  
+| 参数 | 类型 | 说明 | 必填 | 示例 |
+| :-- | :-- | :-- | :-- | :-- |
+| region | int | 大区 | 否 | 3 |
+| dtu | string | 时间段单位 | 是 | last-week / month / half-year |
+| dtv | string | 月度 | 是 | 201708 |
+
+请求示例：
+>
+```HTTP
+GET /sales/ranks/stores?
+```
+
+返回结果示例：
+>  
+```JSON
+{
+  "data": []
 }
 ```
 1.	查询用户的个人交易记录
