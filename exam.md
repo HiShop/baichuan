@@ -43,14 +43,14 @@ GET /users/123/transactions?date=20170228（查询指定日期交易）
       "items": [
         {
           "sku": 1,
-          "title": "iPhone X 128G 银灰"
+          "title": "iPhone X 128G 银灰",
           "price": 12800,
           "qty": 2,
           "amount": 25600
         },
         {
           "sku": 2,
-          "title": "iPhone X 专用贴膜 - 透明"
+          "title": "iPhone X 专用贴膜 - 透明",
           "price": 25600,
           "qty": 3,
           "amount": 76800
@@ -65,7 +65,7 @@ GET /users/123/transactions?date=20170228（查询指定日期交易）
       "items": [
         {
           "sku": 1,
-          "title": "iPhone X 128G 银灰"
+          "title": "iPhone X 128G 银灰",
           "price": 12800,
           "qty": 2,
           "amount": 25600
