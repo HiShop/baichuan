@@ -33,31 +33,72 @@ JSON 数据格式返回
 
 ### 必须实现的HTTP API
 #### 查询用户的个人交易记录
-> GET /transactions/{***user_id***}
+> GET /users/{***user_id***}/transactions
 
 路径参数：
 >
 | 参数 | 说明 | 必填 | 示例 |
 | :-- | :-- | :-- | :-- |
-| user_id | 商户号 | 是 | 9 |
+| user_id | 用户ID | 是 | 1001 |
 
 请求参数：
 >
 | 参数 | 类型 | 说明 | 必填 | 示例 |
 | :-- | :-- | :-- | :---- | :-- |
-| dtu | string | 时间段单位 | 是 | last-week / month / half-year |
-| dtv | string | 月度 | 是 | 201708 |
+| date | string | 交易日期 | 是 | 201708 |
 
-返回结果：
+请求示例：
+>
+```HTTP
+GET /users/123/transactions?date=201702（查询月度交易）
+GET /users/123/transactions?date=20170228（查询指定日期交易）
+```
+
+响应示例：
 >
 ```JSON
 {
-  "data": []
+  "data": [
+    {
+      "order_id": "2017100113141566",
+      "store_id": 2,
+      "total_amount": 102400,
+      "created_at": "2017-10-01T15:19:09.403CST",
+      "items": [
+        {
+          "sku": 1,
+          "price": 12800,
+          "qty": 2,
+          "amount": 25600
+        },
+        {
+          "sku": 2,
+          "price": 25600,
+          "qty": 3,
+          "amount": 76800
+        }
+      ]
+    },
+    {
+      "order_id": "2017100913141581",
+      "store_id": 2,
+      "total_amount": 25600,
+      "created_at": "2017-10-09T11:09:01.107CST",
+      "items": [
+        {
+          "sku": 1,
+          "price": 12800,
+          "qty": 2,
+          "amount": 25600
+        }
+      ]
+    }
+  ]
 }
 ```
 
-#### 门店销量排名
-> GET /sales/ranks/stores
+#### 门店业绩排名
+> GET /store/rankings
 
 路径参数：
 > 无
@@ -66,25 +107,92 @@ JSON 数据格式返回
 >  
 | 参数 | 类型 | 说明 | 必填 | 示例 |
 | :-- | :-- | :-- | :-- | :-- |
-| region | int | 大区 | 否 | 3 |
-| dtu | string | 时间段单位 | 是 | last-week / month / half-year |
-| dtv | string | 月度 | 是 | 201708 |
+| province | int | 省份 | 否 | 3 |
+| by | string | 排名依据 | 是 | amount / count |
+| from | string | 起始月份 | 是 | 201708 |
+| to | string | 截止月份 | 是 | 201710 |
 
 请求示例：
 >
 ```HTTP
-GET /sales/ranks/stores?
+GET /sales/rankings?by=count&from=201708&to=201710（全国门店销量（订单总量）排名）
+GET /sales/rankings?province=3&by=amount&from=201708&to=201710（某省门店销售额（订单金额）排名）
+GET /sales/rankings?province=3&by=count&from=201708&to=201710（某省门店销销量（订单总量）排名）
 ```
 
 返回结果示例：
 >  
 ```JSON
 {
-  "data": []
+  "data": [
+    {
+      "rank": 1,
+      "store_id": 168,
+      "total_count": 131072,
+      "total_amount": 61872100
+    },
+    {
+      "rank": 2,
+      "store_id": 11,
+      "total_count": 87112,
+      "total_amount": 918712310
+    },
+    {
+      "rank": 3,
+      "store_id": 36,
+      "total_count": 76232,
+      "total_amount": 53246112
+    }
+  ]
 }
 ```
-1.	查询用户的个人交易记录
-2.	门店销量排名
-3.	品类销量排名
+
+#### 商品品类排名
+> GET /categories/rankings
+
+路径参数：
+> 无
+
+请求参数：
+>  
+| 参数 | 类型 | 说明 | 必填 | 示例 |
+| :-- | :-- | :-- | :-- | :-- |
+| by | string | 排名依据 | 是 | amount / count |
+| from | string | 起始月份 | 是 | 201708 |
+| to | string | 截止月份 | 是 | 201710 |
+
+请求示例：
+>
+```HTTP
+GET /categories/rankings?by=amount&from=201708&to=201710（基于销售额（订单项金额）排名）
+GET /categories/rankings?by=count&from=201708&to=201710（基于销量（订单项商品数量）排名）
+```
+
+返回结果示例：
+>  
+```JSON
+{
+  "data": [
+    {
+      "rank": 1,
+      "category_id": 23,
+      "total_count": 131072,
+      "total_amount": 61872100
+    },
+    {
+      "rank": 2,
+      "category_id": 53,
+      "total_count": 87112,
+      "total_amount": 918712310
+    },
+    {
+      "rank": 3,
+      "category_id": 19,
+      "total_count": 76232,
+      "total_amount": 53246112
+    }
+  ]
+}
+```
 
 ## 数据格式和样本
