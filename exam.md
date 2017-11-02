@@ -94,9 +94,9 @@ GET /users/123/transactions?date=20170228（查询指定日期交易）
 请求示例：
 >
 ```HTTP
-GET /sales/rankings?by=count&from=201708&to=201710（全国门店销量（订单总量）排名）
-GET /sales/rankings?province=3&by=amount&from=201708&to=201710（某省门店销售额（订单金额）排名）
-GET /sales/rankings?province=3&by=count&from=201708&to=201710（某省门店销销量（订单总量）排名）
+GET /store/rankings?by=count&from=201708&to=201710（全国门店销量（订单项商品数量）排名）
+GET /store/rankings?province=3&by=amount&from=201708&to=201710（某省门店销售额（订单金额）排名）
+GET /store/rankings?province=3&by=count&from=201708&to=201710（某省门店销销量（订单项商品数量）排名）
 ```
 
 返回结果示例：
